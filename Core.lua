@@ -1,20 +1,23 @@
 --[[
-    МОДУЛЬ 1 - CORE
-    Сохрани как "Core.lua"
+    Core.lua
+    Базовые сервисы и настройки
 ]]
 
 local Core = {}
 
--- Сервисы
-Core.Players = game:GetService("Players")
-Core.RunService = game:GetService("RunService")
-Core.UserInputService = game:GetService("UserInputService")
-Core.TweenService = game:GetService("TweenService")
-Core.CoreGui = game:GetService("CoreGui")
-Core.LocalPlayer = Core.Players.LocalPlayer
-Core.Camera = workspace.CurrentCamera
+Core.Services = {
+    Players = game:GetService("Players"),
+    RunService = game:GetService("RunService"),
+    UserInputService = game:GetService("UserInputService"),
+    TweenService = game:GetService("TweenService"),
+    CoreGui = game:GetService("CoreGui"),
+    VirtualInputManager = game:GetService("VirtualInputManager")
+}
 
--- Настройки по умолчанию
+Core.LocalPlayer = Core.Services.Players.LocalPlayer
+Core.Camera = workspace.CurrentCamera
+Core.Mouse = Core.LocalPlayer:GetMouse()
+
 Core.Settings = {
     Aimbot = {
         Enabled = true,
@@ -28,28 +31,21 @@ Core.Settings = {
         TriggerKey = Enum.UserInputType.MouseButton2,
         ToggleMode = true
     },
-    Visuals = {
-        ShowFOV = true,
-        FOVColor = Color3.fromRGB(255, 0, 0),
-        FOVLockedColor = Color3.fromRGB(0, 255, 0),
-        FOVThickness = 2,
-        FOVFilled = false,
-        FOVTransparency = 1,
-        ShowTargetDot = true,
-        DotColor = Color3.fromRGB(255, 255, 255),
-        ShowTargetLine = true,
-        LineColor = Color3.fromRGB(255, 255, 255)
-    },
-    Menu = {
-        AccentColor = Color3.fromRGB(0, 170, 255),
-        BackgroundColor = Color3.fromRGB(25, 25, 25),
-        TextColor = Color3.fromRGB(255, 255, 255)
+    Colors = {
+        Accent = Color3.fromRGB(255, 255, 0),    -- Желтый как в skeet
+        Background = Color3.fromRGB(20, 20, 20),
+        DarkBackground = Color3.fromRGB(10, 10, 10),
+        Text = Color3.fromRGB(240, 240, 240),
+        Red = Color3.fromRGB(255, 70, 70),
+        Green = Color3.fromRGB(70, 255, 70)
     }
 }
 
-Core.aimbotActive = false
-Core.menuOpen = false
-Core.currentTarget = nil
-Core.connections = {}
+Core.State = {
+    aimbotActive = false,
+    menuOpen = false,
+    currentTarget = nil,
+    typing = false
+}
 
 return Core
